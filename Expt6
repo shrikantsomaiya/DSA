@@ -1,0 +1,164 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+   struct node *prev;
+   int data;
+   struct node *next;
+} *head, *temp, *temp1, *temp2;
+ 
+void insert_beg();
+void delete();
+ 
+int count = 0 ;
+ 
+void main()
+{
+   int choice,insert_option,print_option;
+   printf("\n\n Welcome to the implementation of doubly Linked list! \n");
+   do
+   {
+       printf("\n Please select an operation to perform from the below list\n");
+       printf("1. Insert a node \n 2.delete a node\n 3.print the existing list\n 4Exit \n");
+       printf("Enter your choice: ");
+       scanf("%d", &choice);
+       printf("\n \n");
+       switch(choice)
+       {
+           case 1:
+               do
+               {
+                   printf("  1. Begining of list \n 4.exit\n");
+                   printf("Enter your choice: ");
+                   scanf("%d", &insert_option);
+                   switch (insert_option)
+                   {
+                   case 1:
+                       insert_beg();
+                       break;
+                   default:
+                       printf("please enter valid choice 1,2,3,4 ");
+                       break;
+                   }
+              
+               } while(insert_option != 4);
+               printf("\n \n");
+               break;
+ 
+           case 2:
+               delete();
+               break;
+ 
+           case 3:
+               do
+               {
+                   printf("--Display Option menu--\n");
+                   printf("1.Print list in forward Direction \t 2.Exit \n");
+                   printf("Enter your choice:");
+                   scanf("%d", &print_option);
+                   switch (print_option)
+                   {
+                       case 1:
+                           display_forward();
+                           printf("\n \n");
+                           break;
+                       case 2:
+                           temp = head;
+                           if(temp2 == NULL)
+                           {
+                               printf("Error: list is empty to display\n");
+                           }
+                           
+                           printf("\n \n");
+                           break;
+                       case 3:
+                           printf("print operation exit! \n");
+                           break;
+                       default:
+                           printf("Please enter a valid choice: 1,2,3 \n");
+                           break;
+                   }
+               } while(print_option != 3);
+               printf("\n \n");
+               break;
+           case 4:
+               printf("Exit: Program Finished!");
+               break;
+           default:
+               printf("Please enter a valid choice: 1,2,3,4");
+               break;
+       }
+   } while (choice != 4);
+  
+}
+ 
+ 
+ 
+void create()
+{int x;
+temp=(struct node*)malloc(1 * sizeof(struct node));
+temp-> prev= NULL ;
+temp-> next= NULL ;
+printf("Enter the data to be inserted:");
+scanf("%d",&x);
+printf("\n");
+temp -> data = x;
+count++;
+}
+ 
+void insert_beg()
+{
+if (head== NULL)
+{
+   create();
+   head = temp;
+   temp1=head;
+}
+else
+{
+   create();
+   temp-> next = head;
+   head-> prev = temp;
+   head=temp;
+}
+}
+ 
+void delete()
+{
+ if(head== NULL)
+ {
+   printf("ERROR: EMPTY LIST NO ELEMENT TO DELETED\n");
+   return;
+   }
+  else
+  {
+    temp2 =head;
+    while(temp2 ->next !=NULL)
+     temp2 =temp2 ->next;
+   if(head->next== NULL)
+      head=NULL;
+   else{
+        temp2 ->prev->next= NULL ;
+        free(temp2);
+       }
+   }
+}
+ 
+void display_forward()
+{ 
+   temp2 = head;
+ 
+   if(temp2 ==NULL)
+   {
+       printf("List empty to display \n");
+       return;
+   }
+   printf("Linked list elemets in forward direction: ");
+ 
+   while(temp2 -> next != NULL)
+   {
+       printf("%d", temp2-> data);
+       temp2 = temp2 -> next;
+   }
+   printf("%d", temp2 -> data);
+}
